@@ -101,7 +101,7 @@ function _registerListener(win, opts = {}) {
                 if (state === 'interrupted') {
                     const message = `The download of ${item.getFilename()} was interrupted`;
 
-                    finishedDownloadCallback(new Error(message), { url: item.getURL(), filePath });
+                    finishedDownloadCallback(new Error(message), { url: item.getURLChain()[0] || item.getURL(), filePath });
 
                 } else if (state === 'completed') {
                     if (process.platform === 'darwin') {
@@ -113,7 +113,7 @@ function _registerListener(win, opts = {}) {
                     //     webContents.session.removeListener('will-download', listener);
                     // }
 
-                    finishedDownloadCallback(null, { url: item.getURL(), filePath });
+                    finishedDownloadCallback(null, { url: item.getURLChain()[0] || item.getURL(), filePath });
 
                 }
 
